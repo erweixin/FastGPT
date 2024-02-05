@@ -23,10 +23,10 @@ export default withNextCors(async function handler(req: NextApiRequest, res: Nex
       similarity,
       searchMode,
       usingReRank,
-
       datasetSearchUsingExtensionQuery = false,
       datasetSearchExtensionModel,
-      datasetSearchExtensionBg = ''
+      datasetSearchExtensionBg = '',
+      collectionIds
     } = req.body as SearchTestProps;
 
     if (!datasetId || !text) {
@@ -65,7 +65,8 @@ export default withNextCors(async function handler(req: NextApiRequest, res: Nex
       similarity,
       datasetIds: [datasetId],
       searchMode,
-      usingReRank
+      usingReRank,
+      collectionIds
     });
 
     // push bill

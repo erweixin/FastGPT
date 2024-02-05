@@ -17,4 +17,5 @@ export type EmbeddingRecallProps = {
   datasetIds: string[];
   similarity?: number;
   efSearch?: number;
+  collectionIds?: string[];
 };

@@ -121,7 +121,7 @@ export const embeddingRecall = async (
 ): Promise<{
   results: EmbeddingRecallItemType[];
 }> => {
-  const { datasetIds, vectors, limit, similarity = 0, retry = 2, efSearch = 100 } = props;
+  const { datasetIds, vectors, limit, similarity = 0, retry = 2, efSearch = 100, collectionIds } = props;
 
   try {
     const results: any = await PgClient.query(
@@ -130,7 +130,13 @@ export const embeddingRecall = async (
         select id, collection_id, (vector <#> '[${vectors[0]}]') * -1 AS score 
           from ${PgDatasetTableName} 
           where dataset_id IN (${datasetIds.map((id) => `'${String(id)}'`).join(',')})
-              AND vector <#> '[${vectors[0]}]' < -${similarity}
+              AND vector <#> '[${vectors[0]}]' < -${similarity} ${
+                collectionIds?.length
+                  ? `AND collection_id IN (${collectionIds
+                      .map((id) => `'${String(id)}'`)
+                      .join(',')})`
+                  : ''
+              }
           order by score desc limit ${limit};
         COMMIT;`
     );

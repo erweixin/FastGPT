@@ -58,6 +58,7 @@ export type SearchTestProps = {
   [ModuleInputKeyEnum.datasetSearchUsingExtensionQuery]?: boolean;
   [ModuleInputKeyEnum.datasetSearchExtensionModel]?: string;
   [ModuleInputKeyEnum.datasetSearchExtensionBg]?: string;
+  collectionIds?: string[];
 };
 export type SearchTestResponse = {
   list: SearchDataResponseItemType[];

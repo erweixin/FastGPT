@@ -283,6 +283,7 @@ type SearchDatasetDataProps = {
   usingReRank?: boolean;
   reRankQuery: string;
   queries: string[];
+  collectionIds?: string[];
 };
 
 export async function searchDatasetData(props: SearchDatasetDataProps) {
@@ -295,7 +296,8 @@ export async function searchDatasetData(props: SearchDatasetDataProps) {
     limit: maxTokens,
     searchMode = DatasetSearchModeEnum.embedding,
     usingReRank = false,
-    datasetIds = []
+    datasetIds = [],
+    collectionIds
   } = props;
 
   /* init params */
@@ -320,7 +322,8 @@ export async function searchDatasetData(props: SearchDatasetDataProps) {
       vectors,
       limit,
       datasetIds,
-      efSearch: global.systemEnv?.pgHNSWEfSearch
+      efSearch: global.systemEnv?.pgHNSWEfSearch,
+      collectionIds
     });
 
     // get q and a
