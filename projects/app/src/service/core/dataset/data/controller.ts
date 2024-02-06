@@ -401,7 +401,8 @@ export async function searchDatasetData(props: SearchDatasetDataProps) {
             {
               teamId,
               datasetId: id,
-              $text: { $search: jiebaSplit({ text: query }) }
+              $text: { $search: jiebaSplit({ text: query }) },
+              ...(collectionIds?.length ? { collectionId: { $in: collectionIds } } : {})
             },
             {
               score: { $meta: 'textScore' },
